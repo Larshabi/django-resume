@@ -8,15 +8,20 @@ class IndexView(generic.TemplateView):
     template_name= 'main/index.html'
     def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
+       skills = Skill.objects.filter(is_key_skill=True)
+       sub_skill = Skill.objects.filter(is_key_skill=False)
        testimonial = Testimonial.objects.filter(is_active=True)
        certificates = Certificate.objects.filter(is_active = True)
        blogs = Blog.objects.filter(is_active = True)
        portfolio = Portfolio.objects.filter(is_active = True)
        
+       context["skills"] = skills
+       context["sub_skill"] = sub_skill
        context["testimonial"] = testimonial
        context["certificates"] = certificates
        context["blogs"] = blogs
        context["portfolio"] = portfolio
+       
        
        return context
    
